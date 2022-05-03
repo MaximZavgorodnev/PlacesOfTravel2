@@ -10,12 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlacesOfTravel">
 
-        <meta-data
-            android:name="com.yandex.android.geo.API_KEY"
-            android:value="${mapsApiKey}" />
-
         <activity
-            android:name=".AppActivity"
+            android:name=".activity.AppActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

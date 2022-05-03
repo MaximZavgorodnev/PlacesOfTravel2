@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/mapsFragment">
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="ru.maxpek.placesoftravel.activity.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_mapsFragment_to_listOfMarkersFragment"
+            app:destination="@id/listOfMarkersFragment" />
+        <action
+            android:id="@+id/action_mapsFragment_to_newMarkerFragment"
+            app:destination="@id/newMarkerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listOfMarkersFragment"
+        android:name="ru.maxpek.placesoftravel.activity.ListOfMarkersFragment"
+        android:label="fragment_list_of_markers"
+        tools:layout="@layout/fragment_list_of_markers" >
+        <action
+            android:id="@+id/action_listOfMarkersFragment_to_newMarkerFragment"
+            app:destination="@id/newMarkerFragment" />
+        <action
+            android:id="@+id/action_listOfMarkersFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/newMarkerFragment"
+        android:name="ru.maxpek.placesoftravel.activity.dialog.NewMarkerFragment"
+        android:label="fragment_new_marker"
+        tools:layout="@layout/fragment_new_marker" />
+</navigation>

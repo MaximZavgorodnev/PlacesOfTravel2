@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PlacesOfTravel">
-
+<!--        <uses-permission android:name="android.permission.INTERNET"/>-->
+<!--        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>-->
         <activity
             android:name=".activity.AppActivity"
             android:windowSoftInputMode="adjustResize"

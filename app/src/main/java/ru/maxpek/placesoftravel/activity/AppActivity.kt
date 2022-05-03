@@ -10,10 +10,6 @@ import ru.maxpek.placesoftravel.databinding.AppActivityBinding
 
 
 class AppActivity : AppCompatActivity(){
-    companion object{
-        private const val MAPKIT_API_KEY = "e0f40ead-fefb-45cf-821c-37efc0eaa548"
-        private lateinit var mapView: MapView
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = AppActivityBinding.inflate(layoutInflater)

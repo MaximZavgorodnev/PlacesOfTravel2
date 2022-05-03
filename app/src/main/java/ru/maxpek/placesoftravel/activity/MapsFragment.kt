@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.mapview.MapView
 import ru.maxpek.placesoftravel.R
+import ru.maxpek.placesoftravel.databinding.FragmentMapsBinding
 
 
 class MapsFragment : Fragment() {
@@ -17,15 +18,34 @@ class MapsFragment : Fragment() {
         private lateinit var mapView: MapView
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        MapKitFactory.setApiKey(MAPKIT_API_KEY)
+        MapKitFactory.initialize(context)
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        MapKitFactory.setApiKey(MAPKIT_API_KEY)
-        MapKitFactory.initialize(context)
-        mapView.findViewById<View>(R.id.map) as MapView
 
-        return inflater.inflate(R.layout.fragment_maps, container)
+        val binding = FragmentMapsBinding.inflate(inflater, container, false)
+        mapView = binding.map
+
+        return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        MapKitFactory.getInstance().onStart()
+        mapView.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        MapKitFactory.getInstance().onStop()
+        mapView.onStop()
     }
 }

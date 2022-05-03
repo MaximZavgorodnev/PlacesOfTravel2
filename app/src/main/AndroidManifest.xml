@@ -12,6 +12,7 @@
 
         <activity
             android:name=".activity.AppActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,5 +21,7 @@
             </intent-filter>
         </activity>
     </application>
+
+
 
 </manifest>

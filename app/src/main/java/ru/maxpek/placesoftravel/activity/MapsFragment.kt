@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKit
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
+import com.yandex.mapkit.map.InputListener
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.mapkit.user_location.UserLocationLayer
 import ru.maxpek.placesoftravel.R
@@ -17,6 +19,7 @@ import ru.maxpek.placesoftravel.databinding.FragmentMapsBinding
 
 
 class MapsFragment : Fragment() {
+
 
     companion object{
         private const val MAPKIT_API_KEY = "e0f40ead-fefb-45cf-821c-37efc0eaa548"
@@ -43,28 +46,40 @@ class MapsFragment : Fragment() {
         val binding = FragmentMapsBinding.inflate(inflater, container, false)
         mapView = binding.map
         val userLocationLayer = mapKit.createUserLocationLayer(mapView.mapWindow)
-//
-//        userLocationLayer.isVisible
-//
-//        userLocationLayer.setHeadingEnabled(true);
-//        userLocationLayer.setObjectListener(this);
+        var plus = 7F
 
+//        val camera = CameraPosition(TARGET_LOCATION, 7.0f, 0.0f, 0.0f)
+        var target= mapView.map.cameraPosition.target
 
-        userLocationLayer.apply {
-            isVisible = false
-        }
+        val cam = mapView.map
 
         mapView.map.move(
-            CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
+            CameraPosition(TARGET_LOCATION, 7.0f, 0.0f, 0.0f),
             Animation(Animation.Type.SMOOTH, 5F),
             null
         )
-
-        userLocationLayer.cameraPosition()
+//            ?: throw NullPointerException()
         mapView.map.visibleRegion.topLeft
 
 
-            return binding.root
+        binding.plus.setOnClickListener {
+
+            mapView.map.move(CameraPosition(target, plus+1F, 0.0f, 0.0f),
+                Animation(Animation.Type.SMOOTH, 2F),
+                null)
+
+        }
+
+        binding.minus.setOnClickListener {
+            mapView.map.move(CameraPosition(target, plus-3F, 0.0f, 0.0f),
+                Animation(Animation.Type.SMOOTH, 2F),
+                null)
+
+        }
+
+//        val inputListener = object : InputListener {}
+
+        return binding.root
     }
 
     override fun onStart() {
@@ -78,4 +93,9 @@ class MapsFragment : Fragment() {
         MapKitFactory.getInstance().onStop()
         mapView.onStop()
     }
+
+//    private fun showToast(text: String) {
+//        toast?.cancel()
+//        toast = Toast.makeText(this, text, Toast.LENGTH_SHORT).also { it.show() }
+//    }
 }

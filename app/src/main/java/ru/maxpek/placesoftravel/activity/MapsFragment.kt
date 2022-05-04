@@ -64,17 +64,18 @@ class MapsFragment : Fragment() {
 
         binding.plus.setOnClickListener {
 
-            mapView.map.move(CameraPosition(target, plus+1F, 0.0f, 0.0f),
+            mapView.map.move(CameraPosition(mapView.map.cameraPosition.target,mapView.map.cameraPosition.zoom+1,
+                0.0f, 0.0f),
                 Animation(Animation.Type.SMOOTH, 2F),
                 null)
 
         }
 
         binding.minus.setOnClickListener {
-            mapView.map.move(CameraPosition(target, plus-3F, 0.0f, 0.0f),
+            mapView.map.move(CameraPosition(mapView.map.cameraPosition.target,mapView.map.cameraPosition.zoom-1,
+                0.0f, 0.0f),
                 Animation(Animation.Type.SMOOTH, 2F),
                 null)
-
         }
 
 //        val inputListener = object : InputListener {}

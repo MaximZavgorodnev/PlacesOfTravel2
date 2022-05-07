@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">PlacesOfTravel</string>
     <string name="add">Add</string>
+    <string name="addMarker">add this marker?</string>
 </resources>

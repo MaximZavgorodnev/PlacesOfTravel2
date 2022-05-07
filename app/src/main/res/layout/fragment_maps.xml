@@ -45,16 +45,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="48dp"/>
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:text="Button"
-            tools:layout_editor_absoluteX="109dp"
-            tools:layout_editor_absoluteY="224dp"
-            tools:ignore="MissingConstraints" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.yandex.mapkit.mapview.MapView>

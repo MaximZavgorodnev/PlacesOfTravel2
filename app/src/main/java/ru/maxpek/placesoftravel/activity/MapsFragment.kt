@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKit
 import com.yandex.mapkit.MapKitFactory
@@ -14,7 +18,6 @@ import com.yandex.mapkit.layers.GeoObjectTapListener
 import com.yandex.mapkit.layers.ObjectEvent
 import com.yandex.mapkit.map.*
 import com.yandex.mapkit.map.Map
-import com.yandex.mapkit.mapview.MapView
 import com.yandex.mapkit.user_location.UserLocationLayer
 import com.yandex.mapkit.user_location.UserLocationObjectListener
 import com.yandex.mapkit.user_location.UserLocationView
@@ -29,28 +32,7 @@ import ru.maxpek.placesoftravel.databinding.FragmentMapsBinding
 class MapsFragment : Fragment(), UserLocationObjectListener {
     private var binding: FragmentMapsBinding? = null
 
-
-
-
-    private val inputListener = object : InputListener {
-        override fun onMapTap(map: Map, point: Point) {
-            binding?.map?.map?.deselectGeoObject()
-
-            binding?.map?.map?.mapObjects?.addPlacemark(
-                point, ImageProvider.fromResource(context, R.drawable.map_marker_icon)
-            )
-
-//            binding?.button?.visibility = View.VISIBLE
-        }
-
-        override fun onMapLongTap(map: Map, point: Point) {
-            // point - точка на карте
-//            binding?.button?.visibility = View.GONE
-            binding?.map?.map?.mapObjects?.addPlacemark(
-                point, ImageProvider.fromResource(context, R.drawable.user_arrow)
-            )
-        }
-    }
+    var mapObjects: MapObject? = null
 
     private val objectTapListener = GeoObjectTapListener { geo ->
         val selectionMetadata : GeoObjectSelectionMetadata =
@@ -59,6 +41,32 @@ class MapsFragment : Fragment(), UserLocationObjectListener {
         binding?.map?.map?.selectGeoObject(selectionMetadata.id, selectionMetadata.layerId)
 
         true
+    }
+
+    private val inputListener = object : InputListener {
+        override fun onMapTap(map: Map, point: Point) {
+
+        }
+
+        override fun onMapLongTap(map: Map, point: Point) {
+            if (mapObjects != null) {
+                binding?.map?.map?.mapObjects?.remove(mapObjects!!)
+            }
+            binding?.map?.map?.deselectGeoObject()
+            val g = point
+
+            mapObjects = binding?.map?.map?.mapObjects?.addPlacemark(
+                point,
+                ImageProvider.fromResource(context, R.drawable.search_result)
+            )
+
+            Snackbar.make(
+                binding?.root!!, R.string.addMarker,
+                BaseTransientBottomBar.LENGTH_INDEFINITE
+            ).setAction(R.string.add)
+                { findNavController().navigate(R.id.action_mapsFragment_to_newMarkerFragment) }.show()
+
+        }
     }
 
     companion object{
@@ -73,9 +81,8 @@ class MapsFragment : Fragment(), UserLocationObjectListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MapKitFactory.setApiKey(MAPKIT_API_KEY)
-        MapKitFactory.initialize(context)
+        MapKitFactory.initialize(this.context)
         mapKit = MapKitFactory.getInstance()
-
     }
 
 
@@ -86,28 +93,12 @@ class MapsFragment : Fragment(), UserLocationObjectListener {
     ): View {
         val binding = FragmentMapsBinding.inflate(inflater, container, false)
         this.binding = binding
-        val mapView = binding.map
+        val mapView = binding.map.apply {
+            map.addInputListener(inputListener)
+            map.addTapListener(objectTapListener)
+        }
         userLocationLayer = mapKit.createUserLocationLayer(binding.map.mapWindow!!)
 
-        mapView.map.addInputListener(inputListener)
-        mapView.map.addTapListener(objectTapListener)
-
-//        val userLocationLayer = mapKit.createUserLocationLayer(mapView.mapWindow)
-        var plus = 7F
-
-        val camera = CameraPosition(TARGET_LOCATION, 7.0f, 0.0f, 0.0f)
-        var target= userLocationLayer.cameraPosition()?.target
-
-//        userLocationLayer.isVisible
-        val cam = mapView.map
-
-//        mapView.map?.mapObjects?.addPlacemark(
-//            TARGET_LOCATION, ImageProvider.fromResource(context, R.drawable.map_marker_icon)
-//        )
-//
-//        mapView.map?.mapObjects?.addPlacemark(
-//            TARGET_LOCATION, ImageProvider.fromResource(context, R.drawable.map_marker_icon)
-//        )
 
         mapView.map.move(
             CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),

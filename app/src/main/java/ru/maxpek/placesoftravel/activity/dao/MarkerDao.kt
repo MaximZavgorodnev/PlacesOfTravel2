@@ -19,4 +19,5 @@ interface MarkerDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(markers: List<Marker>)
+
 }

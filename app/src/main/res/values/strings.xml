@@ -1,5 +1,7 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">PlacesOfTravel</string>
     <string name="add">Add</string>
     <string name="addMarker">add this marker?</string>
+    <string name="description_menu">menu</string>
+    <string name="description_author_avatar" tools:ignore="MissingTranslation">avatar</string>
 </resources>

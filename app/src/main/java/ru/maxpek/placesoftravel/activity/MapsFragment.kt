@@ -53,7 +53,6 @@ class MapsFragment : Fragment(), UserLocationObjectListener {
                 binding?.map?.map?.mapObjects?.remove(mapObjects!!)
             }
             binding?.map?.map?.deselectGeoObject()
-            val g = point
 
             mapObjects = binding?.map?.map?.mapObjects?.addPlacemark(
                 point,

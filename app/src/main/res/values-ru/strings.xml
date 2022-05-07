@@ -3,4 +3,5 @@
     <string name="app_name">PlacesOfTravel</string>
     <string name="add">Добавить</string>
     <string name="addMarker">Добавить этот маркер?</string>
+    <string name="description_menu">меню</string>
 </resources>

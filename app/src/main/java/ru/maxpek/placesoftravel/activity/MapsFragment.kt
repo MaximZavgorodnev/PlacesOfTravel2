@@ -101,12 +101,22 @@ class MapsFragment : Fragment(), UserLocationObjectListener {
         }
         userLocationLayer = mapKit.createUserLocationLayer(binding.map.mapWindow!!)
 
+        if (arguments != null) {
+            mapView.map?.mapObjects?.addPlacemark(
+                arguments?.pointArg!!,
+                ImageProvider.fromResource(context, R.drawable.search_result)
+            )
+            mapView.map.move(CameraPosition(arguments?.pointArg!!, 14.0f, 0.0f, 0.0f),
+                Animation(Animation.Type.SMOOTH, 5F),
+                null)
+        }
 
-//        mapView.map.move(
-//            CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
-//            Animation(Animation.Type.SMOOTH, 5F),
-//            null
-//        )
+
+        mapView.map.move(
+            CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
+            Animation(Animation.Type.SMOOTH, 5F),
+            null
+        )
         binding.plus.setOnClickListener {
             mapView.map.move(CameraPosition(mapView.map.cameraPosition.target,mapView.map.cameraPosition.zoom+1,
                 0.0f, 0.0f),

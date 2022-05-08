@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.yandex.mapkit.geometry.Point
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.maxpek.placesoftravel.R
@@ -42,7 +43,7 @@ class ListOfMarkersFragment : Fragment() {
                 val marker = viewModel.outputMarker(id)
                 findNavController().navigate(
                     R.id.action_listOfMarkersFragment_to_mapsFragment,
-                    Bundle().apply { marker.point })
+                    Bundle().apply { Point(marker.pointLatitude, marker.pointLongitude) })
             }
         })
 

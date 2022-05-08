@@ -12,6 +12,6 @@
 
     <item
         android:id="@+id/output_to_the_screen"
-        android:title="@string/menu_edit"/>
+        android:title="@string/show"/>
 
 </menu>

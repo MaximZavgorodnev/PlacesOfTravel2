@@ -9,5 +9,6 @@ data class Marker (
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val title: String,
-    val point : Point
+    val pointLatitude : Double,
+    val pointLongitude : Double
 )

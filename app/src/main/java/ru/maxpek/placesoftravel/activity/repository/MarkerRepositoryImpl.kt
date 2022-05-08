@@ -17,12 +17,8 @@ class MarkerRepositoryImpl @Inject constructor(
 ):MarkerRepository {
     private val list = listOf<Marker>()
 
-//    override val dataMarkers: List<Marker> =  db.let { dao.getAll().value!! }
+    override val dataMarkers: Unit =  db.markerDao().insert(list)
 
-
-        init{
-            db.markerDao().insert(list)
-        }
 
         private val markers = dao.getAll().value
         override fun getAll(): LiveData<List<Marker>> {

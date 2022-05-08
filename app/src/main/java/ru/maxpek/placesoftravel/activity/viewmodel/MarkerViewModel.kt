@@ -11,7 +11,8 @@ import javax.inject.Inject
 private val empty = Marker(
     id = 0,
     title = "",
-    point = Point(59.945933, 30.320045)
+    pointLatitude = 59.945933,
+    pointLongitude = 30.320045
 )
 @ExperimentalCoroutinesApi
 @HiltViewModel
@@ -24,6 +25,9 @@ class MarkerViewModel @Inject constructor(
     val data = repository.getAll()
 
 
+    init {
+        repository.dataMarkers
+    }
 
 
     fun removeById(id: Long){
@@ -49,7 +53,7 @@ class MarkerViewModel @Inject constructor(
         if (edited.value?.title == text) {
             return
         }
-        edited.value = edited.value?.copy(id = nextId, title = text, point)
+        edited.value = edited.value?.copy(id = nextId, title = text, point.latitude, point.longitude)
         nextId++
     }
 

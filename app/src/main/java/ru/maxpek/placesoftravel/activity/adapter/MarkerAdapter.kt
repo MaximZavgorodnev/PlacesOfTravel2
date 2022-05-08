@@ -40,8 +40,8 @@ class MarkerViewHolder
     fun bind(marker: Marker) {
         binding.apply {
             title.text = marker.title
-            pointLatitude.text = marker.point.latitude.toString()
-            pointLongitude.text = marker.point.longitude.toString()
+            pointLatitude.text = marker.pointLatitude.toString()
+            pointLongitude.text = marker.pointLongitude.toString()
 
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {

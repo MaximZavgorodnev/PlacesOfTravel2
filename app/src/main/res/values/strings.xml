@@ -6,4 +6,5 @@
     <string name="description_author_avatar" tools:ignore="MissingTranslation">avatar</string>
     <string name="menu_remove">Remove</string>
     <string name="menu_edit">Edit</string>
+    <string name="show">Show</string>
 </resources>

@@ -4,4 +4,6 @@
     <string name="add">Добавить</string>
     <string name="addMarker">Добавить этот маркер?</string>
     <string name="description_menu">меню</string>
+    <string name="menu_remove">Удалить</string>
+    <string name="menu_edit">Редактировать</string>
 </resources>

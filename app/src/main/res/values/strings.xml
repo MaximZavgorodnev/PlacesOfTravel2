@@ -4,4 +4,6 @@
     <string name="addMarker">add this marker?</string>
     <string name="description_menu">menu</string>
     <string name="description_author_avatar" tools:ignore="MissingTranslation">avatar</string>
+    <string name="menu_remove">Remove</string>
+    <string name="menu_edit">Edit</string>
 </resources>

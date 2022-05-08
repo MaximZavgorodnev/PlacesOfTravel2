@@ -39,10 +39,8 @@
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_spacing"
             android:layout_marginStart="@dimen/common_spacing"
             android:layout_marginEnd="@dimen/common_spacing"
-
             app:layout_constraintEnd_toStartOf="@id/menu"
             app:layout_constraintStart_toEndOf="@id/avatar"
             app:layout_constraintTop_toTopOf="parent"
@@ -50,12 +48,28 @@
             tools:text="@string/appbar_scrolling_view_behavior" />
 
         <TextView
-            android:id="@+id/point"
-            android:layout_width="wrap_content"
+            android:id="@+id/point_latitude"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:layout_marginEnd="@dimen/common_spacing"
+            app:layout_constraintEnd_toStartOf="@id/point_longitude"
+            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintTop_toBottomOf="@id/title"
             tools:text="@string/app_name"
-            tools:layout_editor_absoluteX="123dp"
-            tools:layout_editor_absoluteY="62dp"
+
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/point_longitude"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_spacing"
+            android:layout_marginEnd="@dimen/common_spacing"
+            app:layout_constraintEnd_toStartOf="@id/menu"
+            app:layout_constraintStart_toEndOf="@id/point_latitude"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:text="@string/app_name"
+
             tools:ignore="MissingConstraints" />
 
 

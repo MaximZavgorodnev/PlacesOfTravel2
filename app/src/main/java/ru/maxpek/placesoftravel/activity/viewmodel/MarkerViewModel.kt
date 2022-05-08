@@ -1,11 +1,13 @@
 package ru.maxpek.placesoftravel.activity.viewmodel
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.yandex.mapkit.geometry.Point
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
 import ru.maxpek.placesoftravel.activity.marker.Marker
 import ru.maxpek.placesoftravel.activity.repository.MarkerRepository
+import ru.maxpek.placesoftravel.activity.repository.MarkerRepositoryImpl
 import javax.inject.Inject
 
 private val empty = Marker(
@@ -19,5 +21,38 @@ private val empty = Marker(
 class MarkerViewModel @Inject constructor(
     private val repository: MarkerRepository
 ): ViewModel(){
+    private val edited = MutableLiveData(empty)
+    var nextId: Long = 0L
+    val data = repository.getAll()
+
+
+    fun removeById(id: Long){
+        repository.removeById(id)
+    }
+
+    fun addMarker(){
+        edited.value?.let {
+            repository.addMarker(it)
+        }
+        edited.value = empty
+    }
+
+    fun edit(marker: Marker){
+        edited.value = marker
+    }
+    fun outputMarker(id: Long): Marker {
+        return repository.outputMarker(id)
+    }
+
+    fun changeContent(content: String) {
+        val text = content.trim()
+        if (edited.value?.title == text) {
+            return
+        }
+        edited.value = edited.value?.copy(id = nextId, title = text)
+        nextId++
+    }
+
+
 
 }

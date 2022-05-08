@@ -5,10 +5,11 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.mapview.MapView
+import dagger.hilt.android.AndroidEntryPoint
 import ru.maxpek.placesoftravel.R
 import ru.maxpek.placesoftravel.databinding.AppActivityBinding
 
-
+@AndroidEntryPoint
 class AppActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

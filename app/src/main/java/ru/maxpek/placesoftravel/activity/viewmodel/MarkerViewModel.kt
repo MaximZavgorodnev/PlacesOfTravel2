@@ -15,8 +15,7 @@ private val empty = Marker(
 
 @HiltViewModel
 class MarkerViewModel @Inject constructor(
-    private val repository: MarkerRepository
-): ViewModel() {
+    private val repository: MarkerRepository): ViewModel() {
     private val edited = MutableLiveData(empty)
     var nextId: Long = 0L
     var point: Point = Point(0.0,0.0)

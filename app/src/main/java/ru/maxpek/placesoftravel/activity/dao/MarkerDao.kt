@@ -9,6 +9,9 @@ import ru.maxpek.placesoftravel.activity.marker.Marker
 
 @Dao
 interface MarkerDao {
+
+
+
     @Query("SELECT * FROM Marker ORDER BY id DESC")
     fun getAll():LiveData<List<Marker>>
 

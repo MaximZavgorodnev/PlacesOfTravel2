@@ -13,13 +13,12 @@ import ru.maxpek.placesoftravel.R
 import ru.maxpek.placesoftravel.activity.adapter.AdapterCallback
 import ru.maxpek.placesoftravel.activity.adapter.MarkerAdapter
 import ru.maxpek.placesoftravel.activity.marker.Marker
-import ru.maxpek.placesoftravel.activity.viewmodel.MarkerViewModel
+import ru.maxpek.placesoftravel.viewmodel.MarkerViewModel
 import ru.maxpek.placesoftravel.databinding.FragmentListOfMarkersBinding
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ListOfMarkersFragment : Fragment() {
-    @OptIn(ExperimentalCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

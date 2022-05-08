@@ -12,13 +12,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.maxpek.placesoftravel.activity.util.PointArg
 import ru.maxpek.placesoftravel.activity.util.StringArg
-import ru.maxpek.placesoftravel.activity.viewmodel.MarkerViewModel
+import ru.maxpek.placesoftravel.viewmodel.MarkerViewModel
 import ru.maxpek.placesoftravel.databinding.FragmentNewMarkerBinding
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @AndroidEntryPoint
 class NewMarkerFragment : DialogFragment() {
-    @OptIn(ExperimentalCoroutinesApi::class)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

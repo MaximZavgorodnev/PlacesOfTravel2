@@ -22,6 +22,12 @@ class DbModule {
         .fallbackToDestructiveMigration()
         .build()
 
+//    var db: AppDatabase = Room.databaseBuilder(
+//        getApplicationContext(),
+//        AppDatabase::class.java, "database-name"
+//    ).build()
+
     @Provides
     fun providePostDao(appDb: AppDb): MarkerDao = appDb.markerDao()
 }
+

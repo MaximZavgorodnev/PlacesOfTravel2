@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import ru.maxpek.placesoftravel.activity.marker.Marker
 
 interface MarkerRepository {
+//    val dataMarkers: List<Marker>
     fun getAll(): LiveData<List<Marker>>
     fun removeById(id: Long)
     fun addMarker(marker: Marker)

@@ -25,9 +25,17 @@ class NewMarkerFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentNewMarkerBinding.inflate(inflater, container, false)
-        arguments?.textArg?.let { binding.newMarker.setText(it) }
-        arguments?.pointArg?.let { binding.newMarker.setText(it) }
+
         val viewModel: MarkerViewModel by viewModels(ownerProducer = ::requireParentFragment)
+
+        if (arguments != null){
+            arguments?.textArg?.let { binding.newMarker.setText(it) }
+            arguments?.pointArg?.let {
+                viewModel.point = it
+            }
+        }
+
+
 
         binding.enter.setOnClickListener {
             viewModel.changeContent(binding.newMarker.text.toString())

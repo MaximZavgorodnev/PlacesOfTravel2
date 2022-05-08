@@ -22,13 +22,17 @@ import com.yandex.mapkit.user_location.UserLocationLayer
 import com.yandex.mapkit.user_location.UserLocationObjectListener
 import com.yandex.mapkit.user_location.UserLocationView
 import com.yandex.runtime.image.ImageProvider
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.maxpek.placesoftravel.R
+import ru.maxpek.placesoftravel.activity.dialog.NewMarkerFragment.Companion.pointArg
 import ru.maxpek.placesoftravel.databinding.FragmentMapsBinding
 
 
 //UserLocationObjectListener
 
-
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class MapsFragment : Fragment(), UserLocationObjectListener {
     private var binding: FragmentMapsBinding? = null
 
@@ -63,7 +67,8 @@ class MapsFragment : Fragment(), UserLocationObjectListener {
                 binding?.root!!, R.string.addMarker,
                 BaseTransientBottomBar.LENGTH_INDEFINITE
             ).setAction(R.string.add)
-                { findNavController().navigate(R.id.action_mapsFragment_to_newMarkerFragment) }.show()
+                { findNavController().navigate(R.id.action_mapsFragment_to_newMarkerFragment,
+                    Bundle().apply { pointArg = point })}.show()
 
         }
     }
@@ -117,6 +122,10 @@ class MapsFragment : Fragment(), UserLocationObjectListener {
                 0.0f, 0.0f),
                 Animation(Animation.Type.LINEAR, 0.5F),
                 null)
+        }
+
+        binding.storage.setOnClickListener {
+            findNavController().navigate(R.id.action_mapsFragment_to_listOfMarkersFragment)
         }
 
 

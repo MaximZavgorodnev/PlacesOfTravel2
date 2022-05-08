@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.maxpek.placesoftravel.R
 import ru.maxpek.placesoftravel.activity.adapter.AdapterCallback
@@ -15,6 +16,8 @@ import ru.maxpek.placesoftravel.activity.marker.Marker
 import ru.maxpek.placesoftravel.activity.viewmodel.MarkerViewModel
 import ru.maxpek.placesoftravel.databinding.FragmentListOfMarkersBinding
 
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class ListOfMarkersFragment : Fragment() {
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun onCreateView(
@@ -24,7 +27,7 @@ class ListOfMarkersFragment : Fragment() {
     ): View {
         val binding = FragmentListOfMarkersBinding.inflate(inflater, container, false)
 
-        val viewModel: MarkerViewModel by viewModels(ownerProducer = ::requireParentFragment)
+        val viewModel: MarkerViewModel by viewModels()
 
         val adapter = MarkerAdapter (object : AdapterCallback {
             override fun onEdit(marker: Marker) {
@@ -47,9 +50,9 @@ class ListOfMarkersFragment : Fragment() {
         binding.list.adapter = adapter
 
         viewModel.data.observe(viewLifecycleOwner) {
-            val newPost = adapter.itemCount < it.size
+            val newMarker = adapter.itemCount < it.size
             adapter.submitList(it) {
-                if (newPost) {
+                if (newMarker) {
                     binding.list.smoothScrollToPosition(0)
                 }
             }

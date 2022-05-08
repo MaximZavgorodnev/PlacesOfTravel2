@@ -3,11 +3,8 @@ package ru.maxpek.placesoftravel.activity.viewmodel
 import androidx.lifecycle.*
 import com.yandex.mapkit.geometry.Point
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
 import ru.maxpek.placesoftravel.activity.marker.Marker
 import ru.maxpek.placesoftravel.activity.repository.MarkerRepository
-import ru.maxpek.placesoftravel.activity.repository.MarkerRepositoryImpl
 import javax.inject.Inject
 
 private val empty = Marker(
@@ -16,13 +13,13 @@ private val empty = Marker(
     point = Point(59.945933, 30.320045)
 )
 
-@ExperimentalCoroutinesApi
 @HiltViewModel
 class MarkerViewModel @Inject constructor(
     private val repository: MarkerRepository
-): ViewModel(){
+): ViewModel() {
     private val edited = MutableLiveData(empty)
     var nextId: Long = 0L
+    var point: Point = Point(0.0,0.0)
     val data = repository.getAll()
 
 
@@ -49,7 +46,7 @@ class MarkerViewModel @Inject constructor(
         if (edited.value?.title == text) {
             return
         }
-        edited.value = edited.value?.copy(id = nextId, title = text)
+        edited.value = edited.value?.copy(id = nextId, title = text, point)
         nextId++
     }
 

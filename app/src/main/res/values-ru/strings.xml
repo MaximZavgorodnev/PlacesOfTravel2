@@ -8,4 +8,6 @@
     <string name="menu_edit">Редактировать</string>
     <string name="display_on_the_screen">Выести на экран</string>
     <string name="show">Показать</string>
+    <string name="edit">Редактировать</string>
+    <string name="cancel">Отменить</string>
 </resources>

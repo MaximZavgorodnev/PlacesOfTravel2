@@ -20,15 +20,9 @@ class MarkerViewModel @Inject constructor(
     private val repository: MarkerRepository): ViewModel() {
 
     private val edited = MutableLiveData(empty)
-    var nextId: Long = 0L
+    private var nextId: Long = repository.isSize()
     var point: Point = Point(0.0,0.0)
     val data = repository.getAll()
-
-
-    init {
-        repository.dataMarkers
-    }
-
 
     fun removeById(id: Long){
         repository.removeById(id)
@@ -36,16 +30,18 @@ class MarkerViewModel @Inject constructor(
 
     fun addMarker(){
         edited.value?.let {
-            repository.addMarker(it)
+            nextId = repository.addMarker(it)
         }
         edited.value = empty
+
     }
 
     fun edit(marker: Marker){
         edited.value = marker
     }
     fun outputMarker(id: Long): Marker {
-        return repository.outputMarker(id)
+        val marker =  data.value?.first { it.id == id }
+        return marker!!
     }
 
     fun changeContent(content: String) {
@@ -53,8 +49,14 @@ class MarkerViewModel @Inject constructor(
         if (edited.value?.title == text) {
             return
         }
-        edited.value = edited.value?.copy(id = nextId, title = text, point.latitude, point.longitude)
-        nextId++
+
+        if (edited.value?.id!! == 0L){
+            edited.value = edited.value?.copy(id = nextId+1L, title = text,
+                pointLatitude = point.latitude,
+                pointLongitude = point.longitude)
+        } else {
+            edited.value = edited.value?.copy(title = text)
+        }
     }
 
 

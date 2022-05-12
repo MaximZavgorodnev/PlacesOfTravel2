@@ -31,7 +31,7 @@ import ru.maxpek.placesoftravel.databinding.FragmentMapsBinding
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class MapsFragment : Fragment(), UserLocationObjectListener {
+class MapsFragment : Fragment() {
     private var binding: FragmentMapsBinding? = null
 
     var mapObjects: MapObject? = null
@@ -47,12 +47,13 @@ class MapsFragment : Fragment(), UserLocationObjectListener {
 
     private val inputListener = object : InputListener {
         override fun onMapTap(map: Map, point: Point) {
-
+            binding?.map?.map?.mapObjects?.clear()
+//            Snackbar.
         }
 
         override fun onMapLongTap(map: Map, point: Point) {
             if (mapObjects != null) {
-                binding?.map?.map?.mapObjects?.remove(mapObjects!!)
+                binding?.map?.map?.mapObjects?.clear()
             }
             binding?.map?.map?.deselectGeoObject()
 
@@ -72,19 +73,13 @@ class MapsFragment : Fragment(), UserLocationObjectListener {
     }
 
     companion object{
-        private const val MAPKIT_API_KEY = "e0f40ead-fefb-45cf-821c-37efc0eaa548"
-        private lateinit var mapKit: MapKit
-        lateinit var userLocationLayer: UserLocationLayer
-
         private val TARGET_LOCATION = Point(59.945933, 30.320045)
 
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MapKitFactory.setApiKey(MAPKIT_API_KEY)
         MapKitFactory.initialize(this.context)
-        mapKit = MapKitFactory.getInstance()
     }
 
 
@@ -93,30 +88,34 @@ class MapsFragment : Fragment(), UserLocationObjectListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         val binding = FragmentMapsBinding.inflate(inflater, container, false)
         this.binding = binding
         val mapView = binding.map.apply {
             map.addInputListener(inputListener)
             map.addTapListener(objectTapListener)
         }
-        userLocationLayer = mapKit.createUserLocationLayer(binding.map.mapWindow!!)
 
-        if (arguments != null) {
+
+        if (arguments?.pointArg != null) {
+            mapView.map.move(CameraPosition(arguments?.pointArg!!, 14.0f, 0.0f, 0.0f),
+                Animation(Animation.Type.SMOOTH, 5F),
+                null)
             mapView.map?.mapObjects?.addPlacemark(
                 arguments?.pointArg!!,
                 ImageProvider.fromResource(context, R.drawable.search_result)
             )
-            mapView.map.move(CameraPosition(arguments?.pointArg!!, 14.0f, 0.0f, 0.0f),
+
+        } else {
+            mapView.map.move(
+                CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
                 Animation(Animation.Type.SMOOTH, 5F),
-                null)
+                null
+            )
         }
 
 
-        mapView.map.move(
-            CameraPosition(TARGET_LOCATION, 14.0f, 0.0f, 0.0f),
-            Animation(Animation.Type.SMOOTH, 5F),
-            null
-        )
+
         binding.plus.setOnClickListener {
             mapView.map.move(CameraPosition(mapView.map.cameraPosition.target,mapView.map.cameraPosition.zoom+1,
                 0.0f, 0.0f),
@@ -158,36 +157,5 @@ class MapsFragment : Fragment(), UserLocationObjectListener {
         binding = null
     }
 
-    override fun onObjectAdded(userLocationView: UserLocationView) {
-        userLocationLayer.setAnchor(
-            PointF((binding?.map?.width()!! * 0.5).toFloat(), (binding?.map?.height()!! * 0.5).toFloat()),
-            PointF((binding?.map?.width()!! * 0.5).toFloat(), (binding?.map?.height()!! * 0.83).toFloat())
-        )
-
-        userLocationView.arrow.setIcon(
-            ImageProvider.fromResource(
-                context, R.drawable.user_arrow
-            )
-        )
-
-        val pinIcon = userLocationView.pin.useCompositeIcon()
-
-        pinIcon.setIcon(
-            "icon",
-            ImageProvider.fromResource(context, R.drawable.icon),
-            IconStyle().setAnchor(PointF(0f, 0f))
-                .setRotationType(RotationType.ROTATE)
-                .setZIndex(0f)
-                .setScale(1f)
-        )
-    }
-
-    override fun onObjectRemoved(userLocationView: UserLocationView) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onObjectUpdated(userLocationView: UserLocationView, event: ObjectEvent) {
-        TODO("Not yet implemented")
-    }
 }
 

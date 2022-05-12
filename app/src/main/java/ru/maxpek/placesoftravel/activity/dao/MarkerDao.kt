@@ -24,4 +24,7 @@ interface MarkerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(markers: List<Marker>)
 
+    @Query("SELECT COUNT() FROM Marker")
+    fun isSize(): Int
+
 }

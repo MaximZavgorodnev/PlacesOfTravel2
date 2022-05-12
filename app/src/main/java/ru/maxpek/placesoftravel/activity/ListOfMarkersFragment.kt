@@ -13,6 +13,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.maxpek.placesoftravel.R
 import ru.maxpek.placesoftravel.activity.adapter.AdapterCallback
 import ru.maxpek.placesoftravel.activity.adapter.MarkerAdapter
+import ru.maxpek.placesoftravel.activity.dialog.NewMarkerFragment.Companion.pointArg
+import ru.maxpek.placesoftravel.activity.dialog.NewMarkerFragment.Companion.textArg
 import ru.maxpek.placesoftravel.activity.marker.Marker
 import ru.maxpek.placesoftravel.viewmodel.MarkerViewModel
 import ru.maxpek.placesoftravel.databinding.FragmentListOfMarkersBinding
@@ -27,14 +29,14 @@ class ListOfMarkersFragment : Fragment() {
     ): View {
         val binding = FragmentListOfMarkersBinding.inflate(inflater, container, false)
 
-        val viewModel: MarkerViewModel by viewModels()
+        val viewModel: MarkerViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
         val adapter = MarkerAdapter (object : AdapterCallback {
             override fun onEdit(marker: Marker) {
                 viewModel.edit(marker)
                 findNavController().navigate(
-                    R.id.action_listOfMarkersFragment_to_newMarkerFragment,
-                    Bundle().apply { marker.title })
+                    R.id.action_listOfMarkersFragment_to_editMarkerFragment,
+                    Bundle().apply { textArg = marker.title })
             }
             override fun onRemove(id: Long) {
                 viewModel.removeById(id)
@@ -43,7 +45,7 @@ class ListOfMarkersFragment : Fragment() {
                 val marker = viewModel.outputMarker(id)
                 findNavController().navigate(
                     R.id.action_listOfMarkersFragment_to_mapsFragment,
-                    Bundle().apply { Point(marker.pointLatitude, marker.pointLongitude) })
+                    Bundle().apply { pointArg = Point(marker.pointLatitude, marker.pointLongitude) })
             }
         })
 

@@ -1,5 +1,6 @@
 package ru.maxpek.placesoftravel.activity.repository
 
+import android.renderscript.Long2
 import androidx.lifecycle.LiveData
 
 import androidx.paging.ExperimentalPagingApi
@@ -29,11 +30,19 @@ class MarkerRepositoryImpl @Inject constructor(
             dao.removeById(id)
         }
 
-        override fun addMarker(marker: Marker) {
-            dao.insert(marker)
+        override fun addMarker(marker: Marker) : Long{
+            return dao.insert(marker)
         }
 
         override fun outputMarker(id: Long): Marker {
             return markers!!.first { it.id == id }
         }
+
+    override fun isSize(): Long {
+        val size = dao.isSize()
+        return if (size == 0){
+            0L
+        } else size.toLong()
+    }
+
 }

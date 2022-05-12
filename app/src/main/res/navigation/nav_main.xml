@@ -22,15 +22,24 @@
         android:label="fragment_list_of_markers"
         tools:layout="@layout/fragment_list_of_markers" >
         <action
-            android:id="@+id/action_listOfMarkersFragment_to_newMarkerFragment"
-            app:destination="@id/newMarkerFragment" />
-        <action
             android:id="@+id/action_listOfMarkersFragment_to_mapsFragment"
             app:destination="@id/mapsFragment" />
+        <action
+            android:id="@+id/action_listOfMarkersFragment_to_editMarkerFragment"
+            app:destination="@id/editMarkerFragment" />
     </fragment>
     <dialog
         android:id="@+id/newMarkerFragment"
         android:name="ru.maxpek.placesoftravel.activity.dialog.NewMarkerFragment"
         android:label="fragment_new_marker"
         tools:layout="@layout/fragment_new_marker" />
+    <dialog
+        android:id="@+id/editMarkerFragment"
+        android:name="ru.maxpek.placesoftravel.activity.dialog.EditMarkerFragment"
+        android:label="fragment_edit_marker"
+        tools:layout="@layout/fragment_edit_marker" >
+        <action
+            android:id="@+id/action_editMarkerFragment_to_listOfMarkersFragment"
+            app:destination="@id/listOfMarkersFragment" />
+    </dialog>
 </navigation>

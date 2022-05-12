@@ -7,6 +7,7 @@ interface MarkerRepository {
     val dataMarkers: Unit
     fun getAll(): LiveData<List<Marker>>
     fun removeById(id: Long)
-    fun addMarker(marker: Marker)
+    fun addMarker(marker: Marker): Long
     fun outputMarker(id: Long): Marker
+    fun isSize(): Long
 }
